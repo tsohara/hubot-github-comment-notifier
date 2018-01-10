@@ -77,4 +77,15 @@ parseBody = (data) ->
       url: data.comment.html_url
       body: data.comment.body
       mentions: lib.extractMentions data.comment.body
+  # when review summary is submitted
+  else if data.action is 'submitted' and data.pull_request
+    parts =
+      repository: data.repository.full_name
+      action: "Review summary submitted on pull request"
+      number: data.pull_request.number
+      title: data.pull_request.title
+      user: data.sender.login
+      url: data.review.html_url
+      body: data.review.body
+      mentions: lib.extractMentions data.review.body
   parts
